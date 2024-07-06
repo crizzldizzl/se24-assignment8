@@ -18,6 +18,26 @@ public class DoublyLinkedList {
     private Element end;
     private int length;
 
+    private static DoublyLinkedList singleton_List;
+
+    //Standardkonstruktor für eine leere Liste
+    private DoublyLinkedList()
+    {
+        this.start = null;
+        this.end = null;
+        this.length = 0;
+    }
+
+    public static DoublyLinkedList getInstance()
+    {
+        if (singleton_List == null)
+        {
+            singleton_List = new DoublyLinkedList();
+        }
+
+        return singleton_List;
+    }
+
     private static final Logger logger = LoggerFactory.getLogger(DoublyLinkedListComponent.class);
 
     /**
