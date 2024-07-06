@@ -1,5 +1,7 @@
 package de.unibayreuth.se.teaching.list.data.persistence;
 
+import de.unibayreuth.se.teaching.list.data.pattern.Observer;
+import de.unibayreuth.se.teaching.list.data.pattern.Subject;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -233,6 +235,41 @@ class DoublyLinkedListTest {
         list.append(0.4);
         // then: the string representation of the list is "0.9<->0.5<->0.4"
         Assertions.assertEquals("0.9<->0.5<->0.4", list.toString());
+    }
+
+    @Test
+    void testObserverPattern()
+    {
+        Observer o1 = new ListClearedObserver();
+        Observer o2 = new ListClearedObserver();
+
+        list.attach(o1);
+        System.out.println("Attached o1");
+        list.append(1);
+
+        System.out.println("Clearing list...");
+        list.clear();
+
+        System.out.println("Attached o2");
+        list.attach(o2);
+        list.append(1);
+
+        System.out.println("Clearing list...");
+        list.clear();
+
+        System.out.println("Detached o2");
+        list.detach(o2);
+        list.append(1);
+
+        System.out.println("Clearing list...");
+        list.clear();
+
+        System.out.println("Detached o1");
+        list.detach(o1);
+
+        System.out.println("Clearing list...");
+        list.clear();
+
     }
 
     /**
